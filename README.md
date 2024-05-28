@@ -64,3 +64,36 @@ $ forge --help
 $ anvil --help
 $ cast --help
 ```
+
+# Assembly
+[Solidity Docs - Inline Assembly](https://docs.soliditylang.org/en/latest/assembly.html)<br>
+[Solidity Docs - Yul](https://docs.soliditylang.org/en/latest/yul.html#yul)<br>
+> Inline assembly is a way to access the Ethereum Virtual Machine at a low level. This bypasses several important safety features and checks of Solidity. You should only use it for tasks that need it, and only if you are confident with using it.
+
+An inline assembly block is marked by `assembly { ... }`, where the code inside the curly braces is code in the `Yul` language.
+
+Different inline assembly blocks share no namespace, i.e. it is not possible to call a Yul function or access a Yul variable defined in a different inline assembly block.
+
+### Synthax
+- Variable `declaration`:
+```
+assembly {
+    let x := 123
+}
+```
+An already existing solidity variable can also be assigned a value in Yul:
+```
+uint256 z;
+assembly {
+    z := 456
+}
+```
+- Using `if` and `switch` statements
+> There is no `else` statement in Yul!
+```
+uint256 x;
+uint256 z;
+assembly {
+    if lt(x, 10) {z := 99}//note: lt --> "compare if x is `less than` 10"
+}
+```
